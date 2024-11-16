@@ -1,6 +1,6 @@
 #define SDL_MAIN_HANDLED
 
-#include <plot/plot.hpp>
+#include <plot/plot.h>
 
 int main(int, char**) {
 
