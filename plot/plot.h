@@ -79,6 +79,8 @@ typedef struct Plot {
     Points points;
     Lines lines;
     Axes axes;
+    size_t width;
+    size_t height;
 } Plot;
 
 typedef struct Image {

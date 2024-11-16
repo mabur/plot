@@ -14,6 +14,8 @@ int main(int, char**) {
     plot.axes.ymax = 1;
     plot.axes.x_label = "x";
     plot.axes.y_label = "y";
+    plot.width = 640;
+    plot.height = 480;
     
     for (auto x = 0.0; x < 1.0; x += 0.1) {
         auto y = x * x;
@@ -22,5 +24,8 @@ int main(int, char**) {
         auto point = (Point){x, y, radius, color};
         APPEND(plot.points, point);
     }
+
+    auto image = rasterizePlot(plot);
+    
     return 0;
 }
