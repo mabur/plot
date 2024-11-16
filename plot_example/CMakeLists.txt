@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.5)
+project(plot_example)
+add_subdirectory(.. plot_build)
+FILE(GLOB source "*.cpp" "*.hpp")
+add_executable(plot_example ${source})
+target_link_libraries(plot_example PRIVATE plot)
+target_include_directories(plot_example PRIVATE ..)
+target_compile_features(plot_example PRIVATE cxx_std_17)
