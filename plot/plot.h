@@ -91,3 +91,5 @@ typedef struct Image {
 } Image;
 
 Image rasterizePlot(Plot plot);
+
+void writePng();

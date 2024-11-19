@@ -26,6 +26,8 @@ int main(int, char**) {
     }
 
     auto image = rasterizePlot(plot);
-    
+
+    writePng();
+
     return 0;
 }
