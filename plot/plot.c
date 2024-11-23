@@ -37,21 +37,31 @@ size_t yInImage(double y_in_plot, Axes axes, Image image) {
 }
 
 static
+void rasterizeVerticalLine(size_t x, Color color, Image image) {
+    FOR_Y(y, image) {
+        image.data[y * image.width + x] = color;
+    }
+}
+
+static
+void rasterizeHorizontalLine(size_t y, Color color, Image image) {
+    FOR_X(x, image) {
+        image.data[y * image.width + x] = color;
+    }
+}
+
+static
 void rasterizeAxes(Axes axes, Image image) {
     auto GRAY = makeColor(160, 160, 160, 255);
     for (double xd = axes.xmin; xd - 0.5 * axes.xstep < axes.xmax; xd += axes.xstep) {
         auto xi = xInImage(xd, axes, image);
         xi = xi >= image.width ? image.width - 1 : xi;
-        FOR_Y(yi, image) {
-            image.data[yi * image.width + xi] = GRAY;    
-        }
+        rasterizeVerticalLine(xi, GRAY, image);
     }
     for (double yd = axes.ymin; yd - 0.5 * axes.ystep < axes.ymax; yd += axes.ystep) {
         auto yi = yInImage(yd, axes, image);
         yi = yi >= image.height ? image.height - 1 : yi;
-        FOR_X(xi, image) {
-            image.data[yi * image.width + xi] = GRAY;
-        }
+        rasterizeHorizontalLine(yi, GRAY, image);
     }
 }
 
