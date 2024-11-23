@@ -92,4 +92,4 @@ typedef struct Image {
 
 Image rasterizePlot(Plot plot);
 
-void writePng();
+int writePng(Image image, const char* file_path);

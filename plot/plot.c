@@ -6,6 +6,11 @@
 #include <carma/carma.h>
 
 static
+Color makeColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+    return (Color)r | ((Color)g << 8) | ((Color)b << 16) | ((Color)a << 24);
+}
+
+static
 void rasterizePoints(Points points, Image image) {
     
 }
@@ -23,7 +28,7 @@ void rasterizeAxes(Axes axes, Image image) {
 Image rasterizePlot(Plot plot) {
     auto image = (Image){};
     INIT_IMAGE(image, plot.width, plot.height);
-    auto WHITE = (Color){1};
+    auto WHITE = makeColor(255, 255, 255, 255);
     FILL(image, WHITE);
     rasterizeAxes(plot.axes, image);
     rasterizePoints(plot.points, image);
@@ -31,30 +36,11 @@ Image rasterizePlot(Plot plot) {
     return image;
 }
 
-void writePng() {
-    // Define image properties
-    int width = 256;
-    int height = 256;
-    int channels = 3; // RGB format
-    unsigned char *image = (unsigned char *)malloc(width * height * channels);
-
-    // Generate an example image (gradient pattern)
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            int index = (y * width + x) * channels;
-            image[index + 0] = (unsigned char)(x % 256); // Red
-            image[index + 1] = (unsigned char)(y % 256); // Green
-            image[index + 2] = 128;                      // Blue
-        }
-    }
-
-    // Write the image to a PNG file
-    if (stbi_write_png("output.png", width, height, channels, image, width * channels)) {
-        printf("Image successfully written to output.png\n");
-    } else {
-        printf("Failed to write image\n");
-    }
-
-    // Free the image buffer
-    free(image);
+int writePng(Image image, const char* file_path) {
+    auto width = (int)image.width;
+    auto height = (int)image.height;
+    auto data = (void*)image.data;
+    auto channels = sizeof(*image.data);
+    auto stride = width * channels;
+    return stbi_write_png(file_path, width, height, channels, data, stride);
 }
