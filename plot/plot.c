@@ -5,10 +5,8 @@
 #include <stb_image_write.h>
 #include <carma/carma.h>
 
-static
-Color makeColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
-    return (Color)r | ((Color)g << 8) | ((Color)b << 16) | ((Color)a << 24);
-}
+const Color WHITE = makeColor(255, 255, 255, 255);
+const Color GRAY = makeColor(160, 160, 160, 255);
 
 static
 void rasterizePoints(Points points, Image image) {
@@ -54,8 +52,6 @@ void rasterizeHorizontalLine(size_t y, size_t xmin, size_t xmax, Color color, Im
 
 static
 void rasterizeAxes(Axes axes, Image image) {
-    auto GRAY = makeColor(160, 160, 160, 255);
-    
     auto xi_min = xInImage(axes.xmin, axes, image);
     auto xi_max = xInImage(axes.xmax, axes, image);
     auto yi_min = yInImage(axes.ymin, axes, image);
@@ -76,7 +72,6 @@ void rasterizeAxes(Axes axes, Image image) {
 Image rasterizePlot(Plot plot) {
     auto image = (Image){};
     INIT_IMAGE(image, plot.width, plot.height);
-    auto WHITE = makeColor(255, 255, 255, 255);
     FILL(image, WHITE);
     rasterizeAxes(plot.axes, image);
     rasterizePoints(plot.points, image);

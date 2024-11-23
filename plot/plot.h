@@ -6,6 +6,12 @@
 
 typedef uint32_t Color;
 
+#define makeColor(r, g, b, a) \
+    ((Color)r | ((Color)g << 8) | ((Color)b << 16) | ((Color)a << 24))
+
+extern const Color WHITE;
+extern const Color GRAY;
+
 typedef struct Point {
     double x;
     double y;
