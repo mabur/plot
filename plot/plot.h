@@ -22,22 +22,6 @@ typedef struct Line {
     Color color;
 } Line;
 
-typedef struct VerticalLine {
-    double x;
-    double y0;
-    double y1;
-    double thickness;
-    Color color;
-} VerticalLine;
-
-typedef struct HorizontalLine {
-    double x0;
-    double x1;
-    double y;
-    double thickness;
-    Color color;
-} HorizontalLine;
-
 typedef struct Points {
     Point* data;
     size_t count;
@@ -49,18 +33,6 @@ typedef struct Lines {
     size_t count;
     size_t capacity;
 } Lines;
-
-typedef struct VerticalLines {
-    VerticalLine* data;
-    size_t count;
-    size_t capacity;
-} VerticalLines;
-
-typedef struct HorizontalLines {
-    HorizontalLine* data;
-    size_t count;
-    size_t capacity;
-} HorizontalLines;
 
 typedef struct Axes {
     double xmin;
