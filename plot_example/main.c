@@ -20,7 +20,7 @@ int main(int, char**) {
     for (auto x = 0.0; x < 1.0; x += 0.1) {
         auto y = x * x;
         auto radius = 0.01;
-        auto color = (Color){0};
+        auto color = makeColor(0, 0, 255, 255);
         auto point = (Point){x, y, radius, color};
         APPEND(plot.points, point);
     }

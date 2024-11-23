@@ -9,16 +9,6 @@ const Color WHITE = makeColor(255, 255, 255, 255);
 const Color GRAY = makeColor(160, 160, 160, 255);
 
 static
-void rasterizePoints(Points points, Image image) {
-    
-}
-
-static
-void rasterizeLines(Lines lines, Image image) {
-
-}
-
-static
 size_t xInImage(double x_in_plot, Axes axes, Image image) {
     auto border = 0.1;
     auto xmin = axes.xmin;
@@ -34,6 +24,24 @@ size_t yInImage(double y_in_plot, Axes axes, Image image) {
     auto ymax = axes.ymax;
     auto height = (double)image.height;
     return (size_t)(border * height + (y_in_plot - ymin) / (ymax - ymin) * height * (1 - 2 * border));
+}
+
+static
+void rasterizePoints(Points points, Axes axes, Image image) {
+    FOR_EACH(point, points) {
+        auto xi = xInImage(point->x, axes, image);
+        auto yi = yInImage(point->y, axes, image);
+        image.data[(yi + 1) * image.width + xi + 0] = point->color;
+        image.data[(yi - 1) * image.width + xi + 0] = point->color;
+        image.data[(yi + 0) * image.width + xi + 1] = point->color;
+        image.data[(yi + 0) * image.width + xi - 1] = point->color;
+        image.data[(yi + 0) * image.width + xi + 0] = point->color;
+    }
+}
+
+static
+void rasterizeLines(Lines lines, Image image) {
+
 }
 
 static
@@ -74,7 +82,7 @@ Image rasterizePlot(Plot plot) {
     INIT_IMAGE(image, plot.width, plot.height);
     FILL(image, WHITE);
     rasterizeAxes(plot.axes, image);
-    rasterizePoints(plot.points, image);
+    rasterizePoints(plot.points, plot.axes, image);
     rasterizeLines(plot.lines, image);
     return image;
 }
