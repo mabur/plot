@@ -22,7 +22,21 @@ void rasterizeLines(Lines lines, Image image) {
 
 static
 void rasterizeAxes(Axes axes, Image image) {
-
+    auto GRAY = makeColor(160, 160, 160, 255);
+    for (double xd = axes.xmin; xd - 0.5 * axes.xstep < axes.xmax; xd += axes.xstep) {
+        auto xi = (size_t)((xd - axes.xmin) / (axes.xmax - axes.xmin) * image.width);
+        xi = xi >= image.width ? image.width - 1 : xi;
+        FOR_Y(yi, image) {
+            image.data[yi * image.width + xi] = GRAY;    
+        }
+    }
+    for (double yd = axes.ymin; yd - 0.5 * axes.ystep < axes.ymax; yd += axes.ystep) {
+        auto yi = (size_t)((yd - axes.ymin) / (axes.ymax - axes.ymin) * image.height);
+        yi = yi >= image.height ? image.height - 1 : yi;
+        FOR_X(xi, image) {
+            image.data[yi * image.width + xi] = GRAY;
+        }
+    }
 }
 
 Image rasterizePlot(Plot plot) {
