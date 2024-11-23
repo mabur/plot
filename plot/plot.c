@@ -23,7 +23,7 @@ size_t yInImage(double y_in_plot, Axes axes, Image image) {
     auto ymin = axes.ymin;
     auto ymax = axes.ymax;
     auto height = (double)image.height;
-    return (size_t)(border * height + (y_in_plot - ymin) / (ymax - ymin) * height * (1 - 2 * border));
+    return height - (size_t)(border * height + (y_in_plot - ymin) / (ymax - ymin) * height * (1 - 2 * border));
 }
 
 static
@@ -64,8 +64,8 @@ static
 void rasterizeAxes(Axes axes, Image image) {
     auto xi_min = xInImage(axes.xmin, axes, image);
     auto xi_max = xInImage(axes.xmax, axes, image);
-    auto yi_min = yInImage(axes.ymin, axes, image);
-    auto yi_max = yInImage(axes.ymax, axes, image);
+    auto yi_min = yInImage(axes.ymax, axes, image);
+    auto yi_max = yInImage(axes.ymin, axes, image);
     
     for (double xd = axes.xmin; xd - 0.5 * axes.xstep < axes.xmax; xd += axes.xstep) {
         auto xi = xInImage(xd, axes, image);
