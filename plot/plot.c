@@ -22,18 +22,20 @@ void rasterizeLines(Lines lines, Image image) {
 
 static
 size_t xInImage(double x_in_plot, Axes axes, Image image) {
+    auto border = 0.1;
     auto xmin = axes.xmin;
     auto xmax = axes.xmax;
     auto width = (double)image.width;
-    return (size_t)((x_in_plot - xmin) / (xmax - xmin) * width);
+    return (size_t)(border * width + (x_in_plot - xmin) / (xmax - xmin) * width * (1 - 2 * border));
 }
 
 static
 size_t yInImage(double y_in_plot, Axes axes, Image image) {
+    auto border = 0.1;
     auto ymin = axes.ymin;
     auto ymax = axes.ymax;
     auto height = (double)image.height;
-    return (size_t)((y_in_plot - ymin) / (ymax - ymin) * height);
+    return (size_t)(border * height + (y_in_plot - ymin) / (ymax - ymin) * height * (1 - 2 * border));
 }
 
 static
