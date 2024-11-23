@@ -31,11 +31,13 @@ void rasterizePoints(Points points, Axes axes, Image image) {
     FOR_EACH(point, points) {
         auto xi = xInImage(point->x, axes, image);
         auto yi = yInImage(point->y, axes, image);
-        image.data[(yi + 1) * image.width + xi + 0] = point->color;
-        image.data[(yi - 1) * image.width + xi + 0] = point->color;
-        image.data[(yi + 0) * image.width + xi + 1] = point->color;
-        image.data[(yi + 0) * image.width + xi - 1] = point->color;
-        image.data[(yi + 0) * image.width + xi + 0] = point->color;
+        
+        auto R = 2;
+        for (int dy = -R; dy <= R; dy += 1) {
+            for (int dx = -R; dx <= R; dx += 1) {
+                image.data[(yi + dy) * image.width + xi + dx] = point->color;
+            }
+        }
     }
 }
 
