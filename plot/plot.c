@@ -119,7 +119,7 @@ void rasterizeAxes(Axes axes, Image image) {
     
     static auto string_buffer = (DynamicString){};
     
-    // Plot scale for x axis:
+    // Plot scale for x-axis:
     for (double xd = axes.xmin; xd - 0.5 * axes.xstep < axes.xmax; xd += axes.xstep) {
         auto xi = xInImage(xd, axes, image);
         xi = xi >= image.width ? image.width - 1 : xi;
@@ -129,7 +129,8 @@ void rasterizeAxes(Axes axes, Image image) {
         FORMAT_STRING(string_buffer, "%.1f", xd);
         rasterizeString(string_buffer.data, xi - 3 * 8 / 2, yi_max + 1 * 8, 1, BLACK, image);
     }
-    // Plot scale for y axis:
+    
+    // Plot scale for y-axis:
     for (double yd = axes.ymin; yd - 0.5 * axes.ystep < axes.ymax; yd += axes.ystep) {
         auto yi = yInImage(yd, axes, image);
         yi = yi >= image.height ? image.height - 1 : yi;
@@ -139,11 +140,22 @@ void rasterizeAxes(Axes axes, Image image) {
         FORMAT_STRING(string_buffer, "%.1f", yd);
         rasterizeString(string_buffer.data, xi_min - 4 * 8, yi - 8/2, 1, BLACK, image);
     }
+
+    // Plot x-axis:
+    auto yi = yInImage(axes.ymin, axes, image);
+    rasterizeHorizontalLine(yi, xi_min, xi_max, BLACK, image);
     
+    // Plot y-axis:
+    auto xi = xInImage(axes.xmin, axes, image);
+    rasterizeVerticalLine(xi, yi_min, yi_max, BLACK, image);
+    
+    // Plot x-label:
     auto scale = 2;
     auto x = image.width / 2 - strlen(axes.x_label) * 8 * scale / 2;
     auto y = image.height - 2 * 8;
     rasterizeString(axes.x_label, x, y, scale, BLACK, image);
+
+    // Plot y-label:
     x = 0;
     y = image.height / 2 + strlen(axes.y_label) * 8 * scale / 2;
     rasterizeVerticalString(axes.y_label, x, y, scale, BLACK, image);

@@ -12,8 +12,8 @@ int main(int, char**) {
     plot.axes.ymin = 0;
     plot.axes.ystep = 0.1;
     plot.axes.ymax = 1;
-    plot.axes.x_label = "time (s)";
-    plot.axes.y_label = "position (m)";
+    plot.axes.x_label = "TIME (s)";
+    plot.axes.y_label = "POSITION (m)";
     plot.width = 640;
     plot.height = 480;
     
