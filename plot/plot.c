@@ -126,7 +126,7 @@ void rasterizeAxes(Axes axes, Image image) {
 
         CLEAR(string_buffer);
         FORMAT_STRING(string_buffer, axes.x_format, xd);
-        rasterizeString(string_buffer.data, xi - 3 * 8 / 2, yi_max + 1 * 8, 1, BLACK, image);
+        rasterizeString(string_buffer.data, xi - string_buffer.count * 8 / 2, yi_max + 1 * 8, 1, BLACK, image);
     }
     
     // Plot scale for y-axis:
