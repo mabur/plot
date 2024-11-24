@@ -4,6 +4,7 @@
 #define STBI_WRITE_PNG
 #include <stb_image_write.h>
 #include <carma/carma.h>
+#include <carma/carma_string.h>
 
 #include "text.h"
 
@@ -95,19 +96,23 @@ void rasterizeAxes(Axes axes, Image image) {
     auto yi_min = yInImage(axes.ymax, axes, image);
     auto yi_max = yInImage(axes.ymin, axes, image);
     
+    
+    static auto string_buffer = (DynamicString){};
+    
     for (double xd = axes.xmin; xd - 0.5 * axes.xstep < axes.xmax; xd += axes.xstep) {
         auto xi = xInImage(xd, axes, image);
         xi = xi >= image.width ? image.width - 1 : xi;
         rasterizeVerticalLine(xi, yi_min, yi_max, GRAY, image);
+
+        CLEAR(string_buffer);
+        FORMAT_STRING(string_buffer, "%.1f", xd);
+        rasterizeString(string_buffer.data, xi, yi_min - 2 * 8, 1, BLACK, image);
     }
     for (double yd = axes.ymin; yd - 0.5 * axes.ystep < axes.ymax; yd += axes.ystep) {
         auto yi = yInImage(yd, axes, image);
         yi = yi >= image.height ? image.height - 1 : yi;
         rasterizeHorizontalLine(yi, xi_min, xi_max, GRAY, image);
     }
-
-    rasterizeCharacter('A', 8, 16, 2, BLACK, image);
-    rasterizeString("Magnus", 8, 32, 2, BLACK, image);
 }
 
 Image rasterizePlot(Plot plot) {
