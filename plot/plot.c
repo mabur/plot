@@ -8,6 +8,9 @@
 
 #include "text.h"
 
+#define makeColor(r, g, b, a) \
+    ((Color)r | ((Color)g << 8) | ((Color)b << 16) | ((Color)a << 24))
+
 const Color WHITE = makeColor(255, 255, 255, 255);
 const Color BLACK = makeColor(0, 0, 0, 255);
 const Color RED = makeColor(255, 0, 0, 255);
