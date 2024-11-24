@@ -99,6 +99,7 @@ void rasterizeAxes(Axes axes, Image image) {
     
     static auto string_buffer = (DynamicString){};
     
+    // Plot scale for x axis:
     for (double xd = axes.xmin; xd - 0.5 * axes.xstep < axes.xmax; xd += axes.xstep) {
         auto xi = xInImage(xd, axes, image);
         xi = xi >= image.width ? image.width - 1 : xi;
@@ -108,6 +109,7 @@ void rasterizeAxes(Axes axes, Image image) {
         FORMAT_STRING(string_buffer, "%.1f", xd);
         rasterizeString(string_buffer.data, xi, yi_max + 1 * 8, 1, BLACK, image);
     }
+    // Plot scale for y axis:
     for (double yd = axes.ymin; yd - 0.5 * axes.ystep < axes.ymax; yd += axes.ystep) {
         auto yi = yInImage(yd, axes, image);
         yi = yi >= image.height ? image.height - 1 : yi;
@@ -115,7 +117,7 @@ void rasterizeAxes(Axes axes, Image image) {
 
         CLEAR(string_buffer);
         FORMAT_STRING(string_buffer, "%.1f", yd);
-        rasterizeString(string_buffer.data, xi_min - 4 * 8, yi, 1, BLACK, image);
+        rasterizeString(string_buffer.data, xi_min - 4 * 8, yi - 8/2, 1, BLACK, image);
     }
 }
 
