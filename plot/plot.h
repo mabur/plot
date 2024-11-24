@@ -12,11 +12,13 @@ typedef uint32_t Color;
 extern const Color WHITE;
 extern const Color GRAY;
 extern const Color BLACK;
+extern const Color RED;
+extern const Color GREEN;
+extern const Color BLUE;
 
 typedef struct Point {
     double x;
     double y;
-    double radius;
     Color color;
 } Point;
 

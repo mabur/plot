@@ -18,10 +18,7 @@ int main(int, char**) {
     plot.height = 480;
     
     for (auto x = 0.0; x < 1.0; x += 0.1) {
-        auto y = x * x;
-        auto radius = 0.01;
-        auto color = makeColor(0, 0, 255, 255);
-        auto point = (Point){x, y, radius, color};
+        auto point = (Point){x, x * x, BLUE};
         APPEND(plot.points, point);
     }
 
