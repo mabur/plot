@@ -32,10 +32,10 @@ void rasterizePoints(Points points, Axes axes, Image image) {
         auto xi = xInImage(point->x, axes, image);
         auto yi = yInImage(point->y, axes, image);
         
-        auto R = 4;
+        auto R = 3;
         for (int dy = -R; dy <= R; dy += 1) {
             for (int dx = -R; dx <= R; dx += 1) {
-                if (dx * dx + dy * dy < R * R) {
+                if (dx * dx + dy * dy < (R + 1) * (R + 1)) {
                     image.data[(yi + dy) * image.width + xi + dx] = point->color;
                 }
             }
