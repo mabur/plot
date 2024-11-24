@@ -83,10 +83,30 @@ void rasterizeCharacter(char c, size_t x, size_t y, size_t scale, Color color, I
 }
 
 static
+void rasterizeVerticalCharacter(char c, size_t x, size_t y, size_t scale, Color color, Image image) {
+    auto bitmap = character_bitmap8x8(c);
+    for (size_t yc = 0; yc < 8 * scale; ++yc) {
+        for (size_t xc = 0; xc < 8 * scale; ++xc) {
+            size_t i = yc / scale * 8 + xc / scale;
+            if (bitmap[i]) {
+                image.data[(y - xc) * image.width + x + yc] = color;
+            }
+        }
+    }
+}
+
+static
 void rasterizeString(const char* s, size_t x, size_t y, size_t scale, Color color, Image image) {
     for (; *s != '\0'; ++s, x += 8 * scale) {
         rasterizeCharacter(*s, x, y, scale, color, image);
     } 
+}
+
+static
+void rasterizeVerticalString(const char* s, size_t x, size_t y, size_t scale, Color color, Image image) {
+    for (; *s != '\0'; ++s, y -= 8 * scale) {
+        rasterizeVerticalCharacter(*s, x, y, scale, color, image);
+    }
 }
 
 static
@@ -125,8 +145,8 @@ void rasterizeAxes(Axes axes, Image image) {
     auto y = image.height - 2 * 8;
     rasterizeString(axes.x_label, x, y, scale, BLACK, image);
     x = 0;
-    y = image.height / 2;
-    rasterizeString(axes.y_label, x, y, scale, BLACK, image);
+    y = image.height / 2 + strlen(axes.y_label) * 8 * scale / 2;
+    rasterizeVerticalString(axes.y_label, x, y, scale, BLACK, image);
 }
 
 Image rasterizePlot(Plot plot) {
