@@ -783,6 +783,28 @@ const Bitmap COMMA = {
     0, 0, 0, 1, 0, 0, 0, 0,
 };
 
+const Bitmap LEFT_PARENTHESIS = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 1, 0, 0,
+    0, 0, 0, 0, 1, 0, 0, 0,
+    0, 0, 0, 0, 1, 0, 0, 0,
+    0, 0, 0, 0, 1, 0, 0, 0,
+    0, 0, 0, 0, 1, 0, 0, 0,
+    0, 0, 0, 0, 0, 1, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+};
+
+const Bitmap RIGHT_PARENTHESIS = {
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 1, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 0, 0, 0, 0,
+    0, 0, 0, 1, 0, 0, 0, 0,
+    0, 0, 0, 1, 0, 0, 0, 0,
+    0, 0, 0, 1, 0, 0, 0, 0,
+    0, 0, 1, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+};
+
 const Bitmap TEMPLATE = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 0,
@@ -816,6 +838,8 @@ const char* character_bitmap8x8(char character) {
     case ':': return COLON;
     case '.': return DOT;
     case ',': return COMMA;
+    case '(': return LEFT_PARENTHESIS;
+    case ')': return RIGHT_PARENTHESIS;
 
     case 'A': return A;
     case 'B': return B;
