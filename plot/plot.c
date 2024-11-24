@@ -125,7 +125,7 @@ void rasterizeAxes(Axes axes, Image image) {
         rasterizeVerticalLine(xi, yi_min, yi_max, GRID_COLOR, image);
 
         CLEAR(string_buffer);
-        FORMAT_STRING(string_buffer, "%.1f", xd);
+        FORMAT_STRING(string_buffer, axes.x_format, xd);
         rasterizeString(string_buffer.data, xi - 3 * 8 / 2, yi_max + 1 * 8, 1, BLACK, image);
     }
     
@@ -136,7 +136,7 @@ void rasterizeAxes(Axes axes, Image image) {
         rasterizeHorizontalLine(yi, xi_min, xi_max, GRID_COLOR, image);
 
         CLEAR(string_buffer);
-        FORMAT_STRING(string_buffer, "%.1f", yd);
+        FORMAT_STRING(string_buffer, axes.y_format, yd);
         rasterizeString(string_buffer.data, xi_min - 4 * 8, yi - 8/2, 1, BLACK, image);
     }
 
