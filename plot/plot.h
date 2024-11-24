@@ -11,6 +11,7 @@ typedef uint32_t Color;
 
 extern const Color WHITE;
 extern const Color GRAY;
+extern const Color BLACK;
 
 typedef struct Point {
     double x;

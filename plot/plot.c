@@ -5,8 +5,11 @@
 #include <stb_image_write.h>
 #include <carma/carma.h>
 
+#include "text.h"
+
 const Color WHITE = makeColor(255, 255, 255, 255);
 const Color GRAY = makeColor(160, 160, 160, 255);
+const Color BLACK = makeColor(0, 0, 0, 255);
 
 static
 size_t xInImage(double x_in_plot, Axes axes, Image image) {
@@ -63,6 +66,19 @@ void rasterizeHorizontalLine(size_t y, size_t xmin, size_t xmax, Color color, Im
 }
 
 static
+void rasterizeCharacter(char c, size_t x, size_t y, size_t scale, Color color, Image image) {
+    auto bitmap = character_bitmap8x8(c);
+    for (size_t yc = 0; yc < 8 * scale; ++yc) {
+        for (size_t xc = 0; xc < 8 * scale; ++xc) {
+            size_t i = yc / scale * 8 + xc / scale;
+            if (bitmap[i]) {
+                image.data[(y + yc) * image.width + x + xc] = color;
+            }
+        }
+    }
+}
+
+static
 void rasterizeAxes(Axes axes, Image image) {
     auto xi_min = xInImage(axes.xmin, axes, image);
     auto xi_max = xInImage(axes.xmax, axes, image);
@@ -79,6 +95,8 @@ void rasterizeAxes(Axes axes, Image image) {
         yi = yi >= image.height ? image.height - 1 : yi;
         rasterizeHorizontalLine(yi, xi_min, xi_max, GRAY, image);
     }
+
+    rasterizeCharacter('A', 8, 16, 2, BLACK, image);
 }
 
 Image rasterizePlot(Plot plot) {
