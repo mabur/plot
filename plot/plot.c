@@ -112,6 +112,10 @@ void rasterizeAxes(Axes axes, Image image) {
         auto yi = yInImage(yd, axes, image);
         yi = yi >= image.height ? image.height - 1 : yi;
         rasterizeHorizontalLine(yi, xi_min, xi_max, GRAY, image);
+
+        CLEAR(string_buffer);
+        FORMAT_STRING(string_buffer, "%.1f", yd);
+        rasterizeString(string_buffer.data, xi_min - 4 * 8, yi, 1, BLACK, image);
     }
 }
 
