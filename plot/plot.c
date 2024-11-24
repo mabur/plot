@@ -119,6 +119,14 @@ void rasterizeAxes(Axes axes, Image image) {
         FORMAT_STRING(string_buffer, "%.1f", yd);
         rasterizeString(string_buffer.data, xi_min - 4 * 8, yi - 8/2, 1, BLACK, image);
     }
+    
+    auto scale = 2;
+    auto x = image.width / 2 - strlen(axes.x_label) * 8 * scale / 2;
+    auto y = image.height - 2 * 8;
+    rasterizeString(axes.x_label, x, y, scale, BLACK, image);
+    x = 0;
+    y = image.height / 2;
+    rasterizeString(axes.y_label, x, y, scale, BLACK, image);
 }
 
 Image rasterizePlot(Plot plot) {

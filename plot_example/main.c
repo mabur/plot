@@ -12,7 +12,7 @@ int main(int, char**) {
     plot.axes.ymin = 0;
     plot.axes.ystep = 0.1;
     plot.axes.ymax = 1;
-    plot.axes.x_label = "x";
+    plot.axes.x_label = "time (s)";
     plot.axes.y_label = "y";
     plot.width = 640;
     plot.height = 480;
