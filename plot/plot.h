@@ -10,7 +10,6 @@ typedef uint32_t Color;
     ((Color)r | ((Color)g << 8) | ((Color)b << 16) | ((Color)a << 24))
 
 extern const Color WHITE;
-extern const Color GRAY;
 extern const Color BLACK;
 extern const Color RED;
 extern const Color GREEN;

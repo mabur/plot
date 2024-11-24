@@ -9,11 +9,10 @@
 #include "text.h"
 
 const Color WHITE = makeColor(255, 255, 255, 255);
-const Color GRAY = makeColor(160, 160, 160, 255);
 const Color BLACK = makeColor(0, 0, 0, 255);
 const Color RED = makeColor(255, 0, 0, 255);
 const Color GREEN = makeColor(0, 255, 0, 255);
-const Color BLUE = makeColor(0, 0, 255, 255);
+const Color BLUE = makeColor(49, 136, 255, 255);
 
 static
 size_t xInImage(double x_in_plot, Axes axes, Image image) {
