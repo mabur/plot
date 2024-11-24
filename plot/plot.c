@@ -106,7 +106,7 @@ void rasterizeAxes(Axes axes, Image image) {
 
         CLEAR(string_buffer);
         FORMAT_STRING(string_buffer, "%.1f", xd);
-        rasterizeString(string_buffer.data, xi, yi_min - 2 * 8, 1, BLACK, image);
+        rasterizeString(string_buffer.data, xi, yi_max + 1 * 8, 1, BLACK, image);
     }
     for (double yd = axes.ymin; yd - 0.5 * axes.ystep < axes.ymax; yd += axes.ystep) {
         auto yi = yInImage(yd, axes, image);
