@@ -115,15 +115,15 @@ void rasterizeAxes(Axes axes, Image image) {
     auto xi_max = xInImage(axes.xmax, axes, image);
     auto yi_min = yInImage(axes.ymax, axes, image);
     auto yi_max = yInImage(axes.ymin, axes, image);
-    
-    
+
+    auto GRID_COLOR = makeColor(220, 220, 220, 255);
     static auto string_buffer = (DynamicString){};
     
     // Plot scale for x-axis:
     for (double xd = axes.xmin; xd - 0.5 * axes.xstep < axes.xmax; xd += axes.xstep) {
         auto xi = xInImage(xd, axes, image);
         xi = xi >= image.width ? image.width - 1 : xi;
-        rasterizeVerticalLine(xi, yi_min, yi_max, GRAY, image);
+        rasterizeVerticalLine(xi, yi_min, yi_max, GRID_COLOR, image);
 
         CLEAR(string_buffer);
         FORMAT_STRING(string_buffer, "%.1f", xd);
@@ -134,7 +134,7 @@ void rasterizeAxes(Axes axes, Image image) {
     for (double yd = axes.ymin; yd - 0.5 * axes.ystep < axes.ymax; yd += axes.ystep) {
         auto yi = yInImage(yd, axes, image);
         yi = yi >= image.height ? image.height - 1 : yi;
-        rasterizeHorizontalLine(yi, xi_min, xi_max, GRAY, image);
+        rasterizeHorizontalLine(yi, xi_min, xi_max, GRID_COLOR, image);
 
         CLEAR(string_buffer);
         FORMAT_STRING(string_buffer, "%.1f", yd);
