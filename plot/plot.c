@@ -79,6 +79,13 @@ void rasterizeCharacter(char c, size_t x, size_t y, size_t scale, Color color, I
 }
 
 static
+void rasterizeString(const char* s, size_t x, size_t y, size_t scale, Color color, Image image) {
+    for (; *s != '\0'; ++s, x += 8 * scale) {
+        rasterizeCharacter(*s, x, y, scale, color, image);
+    } 
+}
+
+static
 void rasterizeAxes(Axes axes, Image image) {
     auto xi_min = xInImage(axes.xmin, axes, image);
     auto xi_max = xInImage(axes.xmax, axes, image);
@@ -97,6 +104,7 @@ void rasterizeAxes(Axes axes, Image image) {
     }
 
     rasterizeCharacter('A', 8, 16, 2, BLACK, image);
+    rasterizeString("Magnus", 8, 32, 2, BLACK, image);
 }
 
 Image rasterizePlot(Plot plot) {
